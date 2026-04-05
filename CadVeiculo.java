@@ -37,12 +37,15 @@ void main() {
             }
             case 4 -> {
                 buscarPorNome();
+                IO.readln("Pressione Enter para continuar");
             }
             case 5 -> {
                 editar();
+                IO.readln("Pressione Enter para continuar");
             }
             case 6 -> {
                 excluirPorNome();
+                IO.readln("Pressione Enter para continuar");
             }
             case 0 -> {
                 // Sair
@@ -131,16 +134,24 @@ void buscarPorNome() {
 
 void editar(){
     listar();
-    int indiceVeiculo = Input.scanInt("Digite o índice do veículo que você deseja editar: ");
-    String veiculoEditado = IO.readln("Insira o novo nome do veículo: ");
-    veiculoEditado.trim();
 
     if (veiculos.isEmpty()){
         IO.println("Nenhum veículo foi cadastrado ainda!");
         return;
     }
 
-    if (veiculoEditado == ""){
+    int indiceVeiculo = Input.scanInt("Digite o índice do veículo que você deseja editar: ");
+
+    if (indiceVeiculo > veiculos.size()){
+        IO.println("Esse índice de veículo não existe!");
+        return;
+    }
+
+    String veiculoEditado = IO.readln("Insira o novo nome do veículo: ");
+    veiculoEditado = veiculoEditado.trim();
+
+
+    if (veiculoEditado.isEmpty()){
         IO.println("Você não escreveu um novo nome válido!");
         return;
     }
