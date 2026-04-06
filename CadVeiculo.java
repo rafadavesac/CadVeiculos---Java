@@ -86,15 +86,18 @@ void cadastrar() {
 }
 
 void listar() {
-    ordenarLista();
     if (veiculos.isEmpty()) {
         IO.println("Nenhum veículo cadastrado ainda!");
         return;
     }
+
+    ordenarLista();
+
     for (int i = 1; i <= veiculos.size(); i++) {
         IO.println(i + "- " + veiculos.get(i - 1));
     }
     IO.println("Total de veículos cadastrados: " + veiculos.size());
+
 }
 
 void excluir() {
@@ -115,8 +118,6 @@ void buscarPorNome() {
         return; //early return -> faz com que o resto da função não seja executada caso nao tenha nenhum veiculo cadastrado
     }
 
-    listar();
-
     String veiculo = IO.readln("Digite o nome do veículo que deseja buscar: ");
 
     boolean veiculoCadastrado = false;
@@ -135,16 +136,16 @@ void buscarPorNome() {
 }
 
 void editar(){
-    listar();
-
     if (veiculos.isEmpty()){
         IO.println("Nenhum veículo foi cadastrado ainda!");
         return;
     }
 
+    listar();
+
     int indiceVeiculo = Input.scanInt("Digite o índice do veículo que você deseja editar: ");
 
-    if (indiceVeiculo > veiculos.size()){
+    if (indiceVeiculo > veiculos.size() || indiceVeiculo <= 0){
         IO.println("Esse índice de veículo não existe!");
         return;
     }
