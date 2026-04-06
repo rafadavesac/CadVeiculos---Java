@@ -115,6 +115,8 @@ void buscarPorNome() {
         return; //early return -> faz com que o resto da função não seja executada caso nao tenha nenhum veiculo cadastrado
     }
 
+    listar();
+
     String veiculo = IO.readln("Digite o nome do veículo que deseja buscar: ");
 
     boolean veiculoCadastrado = false;
@@ -156,8 +158,7 @@ void editar(){
         return;
     }
 
-    // O novo nome também deve passar pelas mesmas validações do cadastro (não vazio e sem duplicatas).
-
+    //confere se o veiculo já foi cadastrado antes
     boolean veiculoCadastrado = false;
     for (String i : veiculos) {
         if (i.equalsIgnoreCase(veiculoEditado)) {
@@ -173,8 +174,6 @@ void editar(){
 
 }
 
-/* 6. Ordenação da lista antes de exibir
-Antes de exibir a lista de veículos (na listagem e na busca), o sistema deve ordenar os veículos em ordem alfabética. A ordenação deve ser implementada manualmente, utilizando um algoritmo simples com estruturas de repetição e condicionais — não é permitido o uso de métodos prontos como Collections.sort(), List.sort(), ou qualquer expressão lambda/função de ordem superior. */
 void ordenarLista() {
     int tamanho = veiculos.size();
     //bubble sort
@@ -184,7 +183,7 @@ void ordenarLista() {
             String proximo = veiculos.get(j + 1).toLowerCase();
 
             if (atual.compareTo(proximo) > 0) {
-                // Troca os elementos de posição
+                // troca os elementos de posição
                 String valorPraTrocar = veiculos.get(j); //guarda o elemento atual (o que vai ser trocado p/ frente)
                 veiculos.set(j, veiculos.get(j + 1)); // o valor atual, vira o valor 'menor' na ordem alfabética
                 veiculos.set(j + 1, valorPraTrocar); // o proximo valor recebe o valor do 'maior', que estava guardado 
@@ -193,9 +192,6 @@ void ordenarLista() {
     }
 }
 
-
-/*7. Remover por nome
-Além da remoção por índice já implementada em aula, adicione uma nova opção de remoção onde o usuário informa o nome do veículo a ser removido. Caso o veículo não seja encontrado, exiba uma mensagem adequada. */
 
 void excluirPorNome(){
     if (veiculos.isEmpty()) {
@@ -207,10 +203,11 @@ void excluirPorNome(){
     veiculo = veiculo.trim();
 
     boolean veiculoEncontrado = false;
-    for (String i : veiculos) {
-        if (i.equalsIgnoreCase(veiculo)) {
-            veiculos.remove(veiculo);
-            IO.println("O veículo " + veiculo + " foi removido com sucesso!");
+    for (int i = 0; i < veiculos.size(); i++) {
+        if (veiculos.get(i).equalsIgnoreCase(veiculo)) {
+            String nomeRemovido = veiculos.get(i); // guarda o nome real cadastrado
+            veiculos.remove(i); // remove pelo indice
+            IO.println("O veículo \"" + nomeRemovido + "\" foi removido com sucesso!");
             veiculoEncontrado = true;
             break;
         }
